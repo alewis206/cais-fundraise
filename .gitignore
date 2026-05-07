@@ -1,0 +1,35 @@
+# env / secrets
+.env
+.env.*
+secrets/
+
+# editable-install / build artifacts
+*.egg-info/
+
+# data (CSVs are user-provided, DB is generated)
+data/seeds/*
+!data/seeds/README.md
+data/network/*
+!data/network/README.md
+data/prospects.db
+data/prospects.db-journal
+data/prospects.db-wal
+data/prospects.db-shm
+
+# python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+build/
+dist/
+.venv/
+venv/
+
+# editor
+.vscode/
+.idea/
+*.swp
+.DS_Store
