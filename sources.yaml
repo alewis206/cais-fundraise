@@ -1,0 +1,74 @@
+# config/investor_profile.yaml
+#
+# The CAIS investor profile rubric. Source of truth.
+# Loaded by the classifier prompt at runtime via {{INVESTOR_PROFILE_YAML}}.
+# Update with care: changes invalidate prior classifications.
+
+dimensions:
+  services_thesis_fit:
+    description: "Does this person believe services businesses can be great investments?"
+    scores:
+      5: "Has personally founded, operated, or invested in a services-led business that exited or scaled. Public statements supportive of services economics."
+      4: "Invested in or worked at services-adjacent companies (consultancies, agencies, implementation firms). No hostile public stance."
+      3: "No clear signal either way. Generalist investor."
+      2: "Portfolio is heavily SaaS-only. Public preference for pure software margins."
+      1: "Has stated services businesses don't scale or are uninvestable."
+
+  ai_literacy:
+    description: "Can this person evaluate the technical substance of what we're building?"
+    scores:
+      5: "Built or operated AI/ML products. Publishes substantive AI commentary. Foundation lab alumnus."
+      4: "Active AI investor with multiple thoughtful AI investments. Engages technically in public."
+      3: "Generally technical, has some AI exposure, can hold the conversation."
+      2: "Generalist. Says 'AI' a lot but has no operating depth."
+      1: "No technical depth. Will not be able to evaluate our work."
+
+  operator_depth:
+    description: "Has this person actually run a business, ideally a services or implementation business?"
+    scores:
+      5: "Founded and scaled a services business. Knows hiring, delivery, ops at our level and beyond."
+      4: "Senior operator at a services or implementation company (Globant, Accenture, Slalom, etc.)."
+      3: "Operating background generally, not services-specific."
+      2: "Career investor with limited operating reps."
+      1: "Pure financier, no operating background."
+
+  check_size_fit:
+    description: "Will this person plausibly write a $25K-$250K check on a SAFE at $5M post-money cap?"
+    scores:
+      5: "Active angel writing exactly this profile of check, recently."
+      4: "Family office or fund whose minimum check fits, with a thesis we map to."
+      3: "Plausible fit but check size or stage misaligned in some way."
+      2: "Wrong stage (growth investor, late-stage VC, or below-angel hobbyist)."
+      1: "Won't or can't write checks at this stage."
+
+  warm_intro_accessibility:
+    description: "Is there a plausible introduction path through CAIS's network?"
+    scores:
+      5: "Existing CAIS client, advisor, or 1st-degree LinkedIn connection of Devin or Andrew."
+      4: "Mutual 2nd-degree connection, or known via CAIS portfolio (HubSpot, Palfinger, etc.)."
+      3: "YouTube subscriber, podcast we can access, or known via Devin's content network."
+      2: "Cold but accessible (publicly listed contact, active on Twitter)."
+      1: "No realistic path."
+
+tiers:
+  "1":
+    composite_min: 20
+    composite_max: 25
+    action: "Personal outreach from Devin or Andrew. Warm intro required. Top ~50-100."
+  "2":
+    composite_min: 15
+    composite_max: 19
+    action: "Templated but personalized cold outreach. ~200-400 prospects."
+  "3":
+    composite_min: 10
+    composite_max: 14
+    action: "Light-touch (newsletter add, single cold email max). Long tail."
+  "drop":
+    composite_max: 9
+    action: "Remove from active list. Keep DB record for dedupe but exclude from sheet sync."
+
+hard_disqualifiers:
+  - "Has publicly stated services businesses are uninvestable."
+  - "Fund minimum check is >$1M."
+  - "Runs a competing AI services firm targeting mid-market."
+  - "Has do_not_contact flag set manually."
