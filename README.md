@@ -20,30 +20,37 @@ Phase 1 — Foundation. Manual CSV ingest, stub classifier, write-only Google Sh
 ## Quickstart
 
 ```bash
-# install
+# 1. install
 pip install -e ".[dev]"
 
-# configure
+# 2. configure
 cp env.example .env
 # fill in ANTHROPIC_API_KEY, GOOGLE_SHEET_ID, GOOGLE_SERVICE_ACCOUNT_JSON_PATH
 
-# drop a seed CSV at data/seeds/initial.csv (see data/seeds/README.md)
+# 3. drop a seed CSV at data/seeds/initial.csv
+#    (see data/seeds/example.csv for column shape)
+cp data/seeds/example.csv data/seeds/initial.csv  # or write your own
 
-# run
+# 4. run the pipeline
 cais-prospects ingest manual_csv
 cais-prospects classify
 cais-prospects sync-sheet
 cais-prospects report
 ```
 
+> **Heads up:** `data/seeds/` and `data/network/` are gitignored. Anything you drop there
+> stays on your machine — only `README.md` and `example.csv` are tracked. This is by design:
+> the seed list and warm-network CSVs contain personal data on outreach targets and CAIS
+> contacts. Per `CLAUDE.md`, LinkedIn data must arrive only via manual Sales Nav exports.
+
 ## Layout
 
 ```
 config/                 source priorities and the investor rubric
-data/seeds/             input CSVs (gitignored)
-data/network/           CAIS warm-network CSVs (gitignored)
+data/seeds/             input CSVs — gitignored except README.md and example.csv
+data/network/           CAIS warm-network CSVs — gitignored except README.md
 docs/                   spec — read these in order, 01 through 07
-prompts/                classifier prompt template
+prompts/                classifier prompt template (Phase 2+)
 src/                    code
 tests/                  tests
 ```

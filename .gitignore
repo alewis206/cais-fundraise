@@ -9,6 +9,7 @@ secrets/
 # data (CSVs are user-provided, DB is generated)
 data/seeds/*
 !data/seeds/README.md
+!data/seeds/example.csv
 data/network/*
 !data/network/README.md
 data/prospects.db
